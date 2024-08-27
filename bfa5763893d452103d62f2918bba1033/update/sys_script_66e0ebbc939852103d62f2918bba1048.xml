@@ -27,32 +27,32 @@
         <rest_service_text/>
         <rest_variables/>
         <role_conditions/>
-        <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
-	var brName = "Assignment Group Based Restriction: ";
-	
-	if (!gs.getUser().hasRole("admin")) {
-		gs.log(brName + "Not Admin");
-		if (gs.getSession().isInteractive()) {
-			gs.log(brName + "Interactive");
+        <script><![CDATA[(function executeRule(current, previous /*null when async*/ ) {
+    var brName = "Assignment Group Based Restriction: ";
 
-			// Get list of groups that user is part of
-			var loggedUser = gs.getUser();
-			var userGroups = getMyGroups().toArray();
-			var n = 0;
+    if (!gs.getUser().hasRole("admin")) {
+        // gs.log(brName + "Not Admin");
 
-			var userQuery = current.addQuery("caller_id", loggedUser);
+        if (gs.getSession().isInteractive()) {
+            // gs.log(brName + "Interactive");
 
-			
-			for (var group in userGroups) {
-				gs.log(brName + n + " " + userGroups[group]);
-				n++;
-				userQuery.addOrCondition("assignment_group", userGroups[group]);
-			}
+            // Get Sys ID of the user
+            var loggedUser = gs.getUserID();
 
-			gs.log(brName +"Query " + current.getEncodedQuery());
-			
-		}
-	}
+            // Get list of groups that user is part of
+            var userGroups = getMyGroups().toArray();
+
+            // var n = 0;
+            var userQuery = current.addQuery("caller_id", loggedUser);
+
+            for (var group in userGroups) {
+                // gs.log(brName + userGroups[group]);
+                userQuery.addOrCondition("assignment_group", userGroups[group]);
+            }
+            // gs.log(brName +"Query " + current.getEncodedQuery());
+
+        }
+    }
 
 })(current, previous);]]></script>
         <sys_class_name>sys_script</sys_class_name>
@@ -61,7 +61,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>66e0ebbc939852103d62f2918bba1048</sys_id>
-        <sys_mod_count>14</sys_mod_count>
+        <sys_mod_count>17</sys_mod_count>
         <sys_name>Assignment Group Based Restriction</sys_name>
         <sys_overrides/>
         <sys_package display_value="Ticket Restriction" source="bfa5763893d452103d62f2918bba1033">bfa5763893d452103d62f2918bba1033</sys_package>
@@ -69,7 +69,7 @@
         <sys_scope display_value="Ticket Restriction">bfa5763893d452103d62f2918bba1033</sys_scope>
         <sys_update_name>sys_script_66e0ebbc939852103d62f2918bba1048</sys_update_name>
         <sys_updated_by>vasishthroy</sys_updated_by>
-        <sys_updated_on>2024-08-27 08:01:57</sys_updated_on>
+        <sys_updated_on>2024-08-27 08:50:26</sys_updated_on>
         <template/>
         <when>before</when>
     </sys_script>
